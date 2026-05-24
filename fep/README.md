@@ -1,14 +1,16 @@
 # FEP — FlagOS Enhancement Proposal
 
-## 什么是 FEP
+## What is a FEP
 
-FEP 是 FlagOS 的 Feature 管理机制。每个跨模块或较大 Feature 对应一个 FEP —— 一份 markdown 设计文档，存放在 `fep/sig-*/` 目录下，通过 PR 提交、review、迭代和合入。
+A FEP (FlagOS Enhancement Proposal) is the mechanism for managing features in FlagOS.
+Each cross-module or significant feature gets a FEP — a markdown design document,
+stored under `fep/sig-*/`, submitted and reviewed via PR.
 
-**工具链**：GitHub PR + Markdown 文件 + OWNERS 审批
+**Toolchain**: GitHub PR + Markdown file + OWNERS approval
 
-## SIG 分组
+## SIG Groups
 
-| SIG | 覆盖模块 |
+| SIG | Modules |
 |-----|---------|
 | `sig-operator` | FlagGems, FlagAttention, FlagFFT, FlagSparse, FlagDNN, FlagBLAS, FlagTensor, FlagAudio |
 | `sig-compiler` | FlagTree |
@@ -21,21 +23,21 @@ FEP 是 FlagOS 的 Feature 管理机制。每个跨模块或较大 Feature 对�
 | `sig-benchmark` | FlagPerf |
 | `sig-skills` | Skills |
 | `sig-tools` | FlagRelease |
-| `sig-edge` |   — Arm CPU,  NPU, IoT   |
-| `sig-architecture` |   Feature  |
+| `sig-edge` | Edge-side hardware — Arm CPU, mobile NPU, IoT devices |
+| `sig-architecture` | Cross-cutting features, process changes |
 
-##   FEP
+## When to Write a FEP
 
-|   |  FEP  |
-|------|-----------|
-|    Feature | ** ** |
-|     | ** ** |
-|   /  | ** ** |
-|      | ** ** |
-|     Feature / Bugfix |   |
-|     |   |
+| Scenario | FEP Required? |
+|----------|---------------|
+| Cross-module feature | **Required** |
+| New chip support | **Required** |
+| New module / repository | **Required** |
+| Major module-level feature | **Recommended** |
+| Single-repo minor feature / bugfix | No |
+| Documentation improvements | No |
 
-## FEP  
+## FEP Lifecycle
 
 ```
 Provisional ──→ Implementable ──→ Implemented
@@ -44,80 +46,81 @@ Provisional ──→ Implementable ──→ Implemented
      └──→ Rejected
 ```
 
-|   |   |   |
-|------|------|------|
-| **Provisional** |   SIG    |     |
-| **Implementable** |     | SIG   approve PR     |
-| **Implemented** |     |       |
-| **Deferred** |       |      |
-| **Rejected** |   |   |
+| Status | Meaning | Action |
+|--------|---------|--------|
+| **Provisional** | Draft, under SIG discussion | Iterate in PR |
+| **Implementable** | Design approved, ready to implement | SIG approvers approve PR, then merge |
+| **Implemented** | Code merged, acceptance criteria met | Update doc via PR |
+| **Deferred** | Postponed to a later release | Move to next Milestone |
+| **Rejected** | Not moving forward | Close PR; rejected FEPs should still be merged to preserve the decision record |
 
-> ** **：FEP    `**Status:**`    ，     PR   。
+> Status is marked in the FEP doc as `**Status:** <value>` and updated via follow-up PRs at each state transition.
 
-##  
+## Workflow
 
-### 0.   SIG  
+### 0. Socialize with SIG
 
-  FEP  ，   SIG       。        。
+Before writing a FEP, discuss the idea with the relevant SIG. Make sure there is interest
+in the problem space and willingness to review.
 
-### 1.     
+### 1. Create the FEP Document
 
-  `fep-template/README.md`  `fep/sig-xxx/title-slug.md`。
+Copy `fep-template/README.md` to `fep/sig-xxx/title-slug.md`.
 
-- `title-slug`         `-`  
--   ：Summary + Motivation   ，         
--  ** `Provisional`**
+- `title-slug` is a short hyphenated English description
+- Minimum content to start: Summary + Motivation. Everything else can follow later.
+- Set initial Status to `Provisional`
 
-### 2.   PR
+### 2. Open a PR
 
-    PR    。
+Open a PR with the FEP file.
 
--   ：    **    **
--     `FEP`  
--   **Draft PR**      
+- PR title should describe the feature
+- PR description can be brief — the FEP doc carries the details
+- Use a **Draft PR** for early-stage ideas that need more discussion
 
-### 3.     
+### 3. Review and Approve
 
-PR    review、 、 。
+Review, discussion and iteration happen on the PR.
 
-- SIG   （OWNERS  ）    **approve**  
--       `Implementable`
--  PR      
+- SIG approvers (listed in OWNERS) approve the PR
+- Once approved, update Status to `Implementable`
+- Merge the PR
 
-**  **：  Feature     SIG，   `sig-architecture`  。    SIG   FEP，       SIG   OWNERS     。
+**Cross-SIG FEPs**: Pick a home SIG whose directory the file lives in. SIGs
+impacted by the feature should also review. If no existing SIG fits, use `sig-architecture`.
 
-### 4.  
+### 4. Implement
 
--      PR       
--     `Related PRs`   
--         
+- Implementation happens across the relevant repos
+- Track related PRs in the `Related PRs` section of the FEP doc
+- Update the FEP doc via follow-up PRs when scope or design changes
 
-### 5.  
+### 5. Wrap Up
 
--         PR    
--       `Implemented`
--         PR   
+- When all acceptance criteria are met, update Status to `Implemented`
+- This is done via a final PR to update the FEP doc
 
-##  
+## File Naming
 
-|   |   |
-|------|------|
-| `title-slug.md` |   PR   |
-| `NNNN-title-slug.md` |  PR    NNNN   |
+| Convention | When |
+|------------|------|
+| `title-slug.md` | Before PR is created, or during early draft |
+| `NNNN-title-slug.md` | After PR is created, where NNNN is the PR number |
 
->  PR      PR    。  PR        。
+> Rename the file to include the PR number before merge. The PR number serves as the FEP identifier.
 
-##  
+## Roles
 
-|   |   |
-|------|------|
-| **FEP Owner** |   FEP、    、  、  |
-| **SIG  **（OWNERS） | Review   approve FEP    |
-| **Release Manager** |       FEP  、Go/No-Go   |
+| Role | Responsibilities |
+|------|-----------------|
+| **FEP Owner** | Write the FEP, drive implementation, update status, ensure acceptance |
+| **SIG Approver** (OWNERS) | Review and approve FEP documents |
+| **Release Manager** | Track overall FEP progress per version, Go/No-Go decisions |
 
-## Milestone  
+## Milestone Usage
 
--   FlagOS       Milestone（  `FlagOS 2.1`）
-- Milestone    deadline
--       FEP    Milestone
-- Release Manager   Milestone      
+- Each FlagOS version has a corresponding Milestone (e.g., `FlagOS 2.1`)
+- Milestones have a deadline set
+- FEPs targeting a version are associated with the corresponding Milestone
+- Release Manager tracks progress via the Milestone view

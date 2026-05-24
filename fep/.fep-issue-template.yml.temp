@@ -1,9 +1,10 @@
-# 此文件为 FEP Issue 模板存档，当前 PR-only 流程下不启用。
-# 将来如果需要加回 Issue 追踪层，可直接基于此文件恢复。
-# 文件名前的 . 表示暂不参与 Issue 模板渲染。
+# This file is an archive of the FEP Issue template.
+# Not active under the current PR-only workflow.
+# Restore this file (rename to fep.yml) if Issue-based tracking is needed in the future.
+# The leading dot prevents GitHub from rendering it as an issue template.
 
-name: "  FEP (FlagOS Enhancement Proposal)"
-description: FlagOS Feature
+name: "FEP (FlagOS Enhancement Proposal)"
+description: Propose a FlagOS Feature enhancement
 title: "[FEP][sig-xxx] Feature"
 labels: ["FEP"]
 
@@ -13,7 +14,7 @@ body:
       value: |
         ## FlagOS Enhancement Proposal
 
-         [FEP](../blob/main/fep/README.md)  [FEP](../blob/main/fep/README.md)
+        Please review the [FEP process document](../blob/main/fep/README.md) before submitting.
 
   - type: input
     id: owner
@@ -47,8 +48,8 @@ body:
   - type: input
     id: fep-doc
     attributes:
-      label: FEP
-      description: FEP markdown
+      label: FEP Document
+      description: Link to the FEP markdown file
       placeholder: "https://github.com/FlagOS-AI/community/blob/main/fep/sig-xxx/NNNN-title.md"
     validations:
       required: false
@@ -56,7 +57,7 @@ body:
   - type: input
     id: target-version
     attributes:
-      label: ""
+      label: Target Version
       placeholder: "FlagOS 2.1"
     validations:
       required: true
@@ -64,13 +65,13 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: ""
-      description: "" + ""
+      label: Description
+      description: What + Why
       placeholder: |
-        ### ""
+        ### What
         ...
 
-        ### ""
+        ### Why
         ...
     validations:
       required: true
@@ -78,31 +79,31 @@ body:
   - type: textarea
     id: acceptance-criteria
     attributes:
-      label: ""
-      description: checklist
+      label: Acceptance Criteria
+      description: Completion conditions (use checklist format)
       placeholder: |
-        - [ ] 1
-        - [ ] 2
+        - [ ] Criteria 1
+        - [ ] Criteria 2
     validations:
       required: true
 
   - type: textarea
     id: related-prs
     attributes:
-      label: " PR"
-      description: PR
+      label: Related PRs
+      description: PR checklist for implementing this feature
       placeholder: |
-        - [ ] flagos-ai/FlagGems#xxx —
-        - [ ] flagos-ai/FlagTree#xxx —
+        - [ ] flagos-ai/FlagGems#xxx — description
+        - [ ] flagos-ai/FlagTree#xxx — description
     validations:
       required: false
 
   - type: textarea
     id: sig-deps
     attributes:
-      label: "SIG"
-      description: "SIG  / Feature "
+      label: Cross-SIG Dependencies
+      description: Other SIGs / Features this depends on
       placeholder: |
-        " sig-xxx"
+        Depends on sig-xxx feature
     validations:
       required: false
