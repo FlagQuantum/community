@@ -35,6 +35,7 @@ body:
         - sig-benchmark
         - sig-skills
         - sig-tools
+        - sig-edge
         - sig-architecture
     validations:
       required: true
