@@ -9,7 +9,7 @@ body:
       value: |
         ## FlagOS Enhancement Proposal
 
-        请参考 [FEP 流程文档](../../docs/fep-process.md) 和 [已有 FEP](https://github.com/FlagOS-AI/community/issues?q=label%3AFEP+sort%3Aupdated-desc) 了解规范。
+        请参考 [FEP 流程文档](fep-process.md) 和 [已有 FEP](https://github.com/FlagOS-AI/community/issues?q=label%3AFEP+sort%3Aupdated-desc) 了解规范。
 
   - type: input
     id: owner
